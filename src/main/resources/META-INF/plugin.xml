@@ -137,5 +137,6 @@
                 scheme="Darcula"
                 file="ee/vstepa/jetbrains/plugins/renpy/colorSchemes/RenPyScriptDarcula.icls"
         />
+        <multiHostInjector implementation="ee.vstepa.jetbrains.plugins.renpy.lang.script.injection.RenPyPythonLanguageInjector"/>
     </extensions>
 </idea-plugin>

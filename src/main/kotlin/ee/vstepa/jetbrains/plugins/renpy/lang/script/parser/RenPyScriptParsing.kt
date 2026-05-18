@@ -14,9 +14,7 @@ import ee.vstepa.jetbrains.plugins.renpy.lang.script.psi.token.RenPyScriptTokenS
 import ee.vstepa.jetbrains.plugins.renpy.lang.script.psi.token.RenPyScriptTokenType
 import ee.vstepa.jetbrains.plugins.renpy.lang.script.psi.token.RenPyScriptTokenTypes
 
-
 val LOG = Logger.getInstance(RenPyScriptParsing::class.java)
-
 
 open class RenPyScriptParsing(private val builder: PsiBuilder) {
 
@@ -36,7 +34,6 @@ open class RenPyScriptParsing(private val builder: PsiBuilder) {
                 }
                 it.done(RenPyScriptElementTypes.REN_PY_SCRIPT)
             }
-
         }
     }
 
@@ -133,6 +130,23 @@ open class RenPyScriptParsing(private val builder: PsiBuilder) {
                 // 'pause' statement
                 token == RenPyScriptTokenTypes.PAUSE_KEYWORD -> parsePauseStatement()
 
+                // ---------------------------------------------------------
+                // NEW: Generic fallback parser for structural/UI keywords
+                // ---------------------------------------------------------
+                token == RenPyScriptTokenTypes.DEFINE_KEYWORD ||
+                        token == RenPyScriptTokenTypes.DEFAULT_KEYWORD ||
+                        token == RenPyScriptTokenTypes.IMAGE_KEYWORD ||
+                        token == RenPyScriptTokenTypes.SCREEN_KEYWORD ||
+                        token == RenPyScriptTokenTypes.TRANSFORM_KEYWORD ||
+                        token == RenPyScriptTokenTypes.STYLE_KEYWORD ||
+                        token == RenPyScriptTokenTypes.INIT_KEYWORD ||
+                        token == RenPyScriptTokenTypes.PYTHON_KEYWORD ||
+                        token == RenPyScriptTokenTypes.LAYEREDIMAGE_KEYWORD ||
+                        token == RenPyScriptTokenTypes.VOICE_KEYWORD ||
+                        token == RenPyScriptTokenTypes.WINDOW_KEYWORD ||
+                        token == RenPyScriptTokenTypes.MUSIC_KEYWORD ||
+                        token == RenPyScriptTokenTypes.SOUND_KEYWORD -> parseGenericDeclarationStatement()
+
                 else -> {
                     markAdvanceError("Unexpected statement start token: $token")
                     false
@@ -141,6 +155,44 @@ open class RenPyScriptParsing(private val builder: PsiBuilder) {
         },
         this::parseGeneralStatementsList
     )
+
+    protected open fun parseGenericDeclarationStatement(): Boolean {
+        val currentIndentLevel = getCurrentLineIndentLevel()
+        val stmtMarker = mark()
+
+        // Consume the start token (e.g., define, init, screen)
+        markAndDoneGeneralKeyword()
+
+        var hasColon = false
+        // Read the rest of the line until a colon or newline is hit
+        while (!eof() && !isTokenNewLine()) {
+            if (token() == RenPyScriptTokenTypes.COLON) {
+                hasColon = true
+                markAdvanceDone(RenPyScriptElementTypes.GEN_STMT_COLON)
+                break
+            }
+            advance()
+        }
+
+        var success = verifyTokenIsNewLineOrEof("New line is expected at the end of the statement")
+
+        // If a colon was found, this statement expects an indented block underneath it
+        if (hasColon && success && !eof()) {
+
+            // FIX: Do NOT call parseGeneralStatementsList(currentIndentLevel)
+            // Python, Screen, and Transform blocks use their own internal syntax.
+            // Instead, we just sweep over the entire indented block safely
+            // without trying to validate it as Ren'Py dialogue.
+            mark().also {
+                advanceToDedentOfCurrentBlockOrEof(currentIndentLevel)
+                it.done(RenPyScriptElementTypes.STMTS_LIST)
+            }
+        }
+
+        // Drop the marker so we don't break the existing PSI tree structure
+        stmtMarker.drop()
+        return success
+    }
 
     protected open fun parseBlockStatement(): Boolean {
         return when (val token = token()) {
@@ -955,8 +1007,14 @@ open class RenPyScriptParsing(private val builder: PsiBuilder) {
 
         var success = true
 
-        // Channel
-        if (token() == RenPyScriptTokenTypes.IDENTIFIER) {
+        // ---------------------------------------------------------
+        // NEW: Accept music, sound, and voice keywords as channels
+        // ---------------------------------------------------------
+        val currentToken = token()
+        if (currentToken == RenPyScriptTokenTypes.IDENTIFIER ||
+            currentToken == RenPyScriptTokenTypes.MUSIC_KEYWORD ||
+            currentToken == RenPyScriptTokenTypes.SOUND_KEYWORD ||
+            currentToken == RenPyScriptTokenTypes.VOICE_KEYWORD) {
             markAdvanceDone(RenPyScriptElementTypes.AUDIO_CONTROL_STMT_CHANNEL)
         } else {
             error("'${stmtElementType.stmtName}' statement channel expected")
