@@ -141,5 +141,11 @@
         <postStartupActivity implementation="ee.vstepa.jetbrains.plugins.renpy.listeners.RenPyProjectStartupActivity"/>
         <gotoDeclarationHandler implementation="ee.vstepa.jetbrains.plugins.renpy.navigation.RenPyGotoDeclarationHandler"/>
         <lang.psiStructureViewFactory language="Ren'Py Script" implementationClass="ee.vstepa.jetbrains.plugins.renpy.navigation.RenPyStructureViewFactory"/>
+        <completion.contributor language="Ren'Py Script" implementationClass="ee.vstepa.jetbrains.plugins.renpy.completion.RenPyCompletionContributor"/>
+        <typedHandler implementation="ee.vstepa.jetbrains.plugins.renpy.completion.RenPyTypedHandler"/>
+        <defaultLiveTemplates file="/liveTemplates/RenPy.xml"/>
+        <liveTemplateContext implementation="ee.vstepa.jetbrains.plugins.renpy.template.RenPyLiveTemplateContext" contextId="RENPY"/>
+        <lang.documentationProvider language="Ren'Py Script" implementationClass="ee.vstepa.jetbrains.plugins.renpy.documentation.RenPyDocumentationProvider"/>
+        <colorProvider implementation="ee.vstepa.jetbrains.plugins.renpy.color.RenPyColorProvider"/>
     </extensions>
 </idea-plugin>

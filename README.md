@@ -13,10 +13,10 @@
 
 ### Phase 3: Editor Enhancements & UX
 
-* [ ] Implement `CompletionContributor` to provide context-aware suggestions for labels (e.g., after `jump`), screens (e.g., after `show screen`), and variables.
-* [ ] Convert the VS Code extension's JSON snippets into JetBrains XML Live Templates for rapid code insertion.
-* [ ] Implement `DocumentationProvider` to fetch and display docstrings for built-in Ren'Py functions on hover.
-* [ ] Implement `ElementColorProvider` to read hex color strings and render a clickable native color picker in the editor gutter.
+* [x] Implement `CompletionContributor` to provide context-aware suggestions for labels (e.g., after `jump`), screens (e.g., after `show screen`), and variables.
+* [x] Convert the VS Code extension's JSON snippets into JetBrains XML Live Templates for rapid code insertion.
+* [x] Implement `DocumentationProvider` to fetch and display docstrings for built-in Ren'Py functions on hover.
+* [x] Implement `ElementColorProvider` to read hex color strings and render a clickable native color picker in the editor gutter.
 
 ### Phase 4: Diagnostics & Project Tooling
 

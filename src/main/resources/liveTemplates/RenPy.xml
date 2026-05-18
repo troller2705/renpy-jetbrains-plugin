@@ -1,0 +1,36 @@
+<templateSet group="Ren'Py">
+
+    <!-- Menu Snippet -->
+    <template name="menu" value="menu:&#10;    &quot;$NARRATION$&quot;&#10;&#10;    &quot;$CHOICE_1$&quot;:&#10;        $END_1$&#10;&#10;    &quot;$CHOICE_2$&quot;:&#10;        $END_2$" description="Standard choice menu" toReformat="true" toShortenFQNames="true">
+        <variable name="NARRATION" expression="" defaultValue="&quot;What should I do?&quot;" alwaysStopAt="true" />
+        <variable name="CHOICE_1" expression="" defaultValue="&quot;Choice 1&quot;" alwaysStopAt="true" />
+        <variable name="END_1" expression="" defaultValue="pass" alwaysStopAt="true" />
+        <variable name="CHOICE_2" expression="" defaultValue="&quot;Choice 2&quot;" alwaysStopAt="true" />
+        <variable name="END_2" expression="" defaultValue="pass" alwaysStopAt="true" />
+        <context>
+            <option name="RENPY" value="true" />
+        </context>
+    </template>
+
+    <!-- Transform Snippet -->
+    <template name="transform" value="transform $NAME$:&#10;    xalign $X$ yalign $Y$&#10;    linear $TIME$ alpha $ALPHA$" description="Basic animation transform" toReformat="true" toShortenFQNames="true">
+        <variable name="NAME" expression="" defaultValue="&quot;my_transform&quot;" alwaysStopAt="true" />
+        <variable name="X" expression="" defaultValue="0.5" alwaysStopAt="true" />
+        <variable name="Y" expression="" defaultValue="1.0" alwaysStopAt="true" />
+        <variable name="TIME" expression="" defaultValue="1.0" alwaysStopAt="true" />
+        <variable name="ALPHA" expression="" defaultValue="1.0" alwaysStopAt="true" />
+        <context>
+            <option name="RENPY" value="true" />
+        </context>
+    </template>
+
+    <!-- Init Python Snippet -->
+    <template name="initpy" value="init $OFFSET$ python:&#10;    $END$" description="Init python block" toReformat="true" toShortenFQNames="true">
+        <variable name="OFFSET" expression="" defaultValue="0" alwaysStopAt="true" />
+        <variable name="END" expression="" defaultValue="pass" alwaysStopAt="true" />
+        <context>
+            <option name="RENPY" value="true" />
+        </context>
+    </template>
+
+</templateSet>

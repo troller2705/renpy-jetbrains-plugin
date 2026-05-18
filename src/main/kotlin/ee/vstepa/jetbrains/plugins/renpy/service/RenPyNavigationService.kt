@@ -11,6 +11,7 @@ import java.util.concurrent.ConcurrentHashMap
 class RenPyNavigationService(private val project: Project) {
     private val labelCache = ConcurrentHashMap<String, Pair<String, Int>>()
     private val screenCache = ConcurrentHashMap<String, Pair<String, Int>>()
+    private val variableCache = ConcurrentHashMap<String, Pair<String, Int>>()
     private var isInitialized = false
 
     fun initIndex() {
@@ -60,6 +61,7 @@ class RenPyNavigationService(private val project: Project) {
 
         val labelRegex = Regex("""^\s*label\s+([a-zA-Z0-9_]+)""")
         val screenRegex = Regex("""^\s*screen\s+([a-zA-Z0-9_]+)""")
+        val varRegex = Regex("""^\s*(?:define|default)\s+([a-zA-Z0-9_]+)""")
 
         gameDir.walkTopDown().filter { it.isFile && it.extension == "rpy" }.forEach { file ->
             val relativePath = file.relativeTo(File(basePath)).path.replace("\\", "/")
@@ -82,6 +84,15 @@ class RenPyNavigationService(private val project: Project) {
                                 screenCache[screenCache.keys.toString()] = Pair(relativePath, index + 1)
                             }
                         }
+
+                        // Check for Variables
+                        val varMatch = varRegex.find(line)
+                        if (varMatch != null) {
+                            val varName = varMatch.groupValues[1]
+                            if (!variableCache.containsKey(varName)) {
+                                variableCache[varName] = Pair(relativePath, index + 1)
+                            }
+                        }
                     }
                 }
             } catch (e: Exception) {
@@ -98,5 +109,20 @@ class RenPyNavigationService(private val project: Project) {
     fun getScreenLocation(name: String): Pair<String, Int>? {
         if (!isInitialized) initIndex()
         return screenCache[name]
+    }
+
+    fun getAllLabels(): Set<String> {
+        if (!isInitialized) initIndex()
+        return labelCache.keys
+    }
+
+    fun getAllScreens(): Set<String> {
+        if (!isInitialized) initIndex()
+        return screenCache.keys
+    }
+
+    fun getAllVariables(): Set<String> {
+        if (!isInitialized) initIndex()
+        return variableCache.keys
     }
 }
