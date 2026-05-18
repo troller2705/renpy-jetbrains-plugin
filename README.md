@@ -8,8 +8,8 @@
 ### Phase 2: Indexing & Code Navigation
 
 * [x] Build a background service that detects and parses `game/saves/navigation.json`.
-* [ ] Implement `GotoDeclarationHandler` to map Ctrl+Click actions to the file paths and line numbers parsed from the JSON.
-* [ ] Implement `PsiStructureViewFactory` to scan the current file and populate the IDE's Structure tool window (equivalent to document symbols).
+* [x] Implement `GotoDeclarationHandler` to map Ctrl+Click actions to the file paths and line numbers parsed from the JSON.
+* [x] Implement `PsiStructureViewFactory` to scan the current file and populate the IDE's Structure tool window (equivalent to document symbols).
 
 ### Phase 3: Editor Enhancements & UX
 
