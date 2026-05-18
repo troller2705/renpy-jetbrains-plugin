@@ -138,5 +138,8 @@
                 file="ee/vstepa/jetbrains/plugins/renpy/colorSchemes/RenPyScriptDarcula.icls"
         />
         <multiHostInjector implementation="ee.vstepa.jetbrains.plugins.renpy.lang.script.injection.RenPyPythonLanguageInjector"/>
+        <postStartupActivity implementation="ee.vstepa.jetbrains.plugins.renpy.listeners.RenPyProjectStartupActivity"/>
+        <gotoDeclarationHandler implementation="ee.vstepa.jetbrains.plugins.renpy.navigation.RenPyGotoDeclarationHandler"/>
+        <lang.psiStructureViewFactory language="Ren'Py Script" implementationClass="ee.vstepa.jetbrains.plugins.renpy.navigation.RenPyStructureViewFactory"/>
     </extensions>
 </idea-plugin>
