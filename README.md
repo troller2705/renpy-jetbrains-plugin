@@ -1,6 +1,6 @@
 ### Phase 1: Environment & Parsing Foundation
 
-* [ ] Fork or clone the `vstepa/renpy-jetbrains-plugin` prototype.
+* [x] Fork or clone the `vstepa/renpy-jetbrains-plugin` prototype.
 * [ ] Update the `build.gradle.kts` to target the latest IntelliJ Platform SDK.
 * [ ] Expand the JFlex lexer (`.flex` file) to include all structural keywords (e.g., `transform`, `screen`, `init`, `layeredimage`).
 * [ ] Implement `LanguageInjector` to inject native Python language support into `python:` blocks and `$` statements for seamless custom logic and UI development.
