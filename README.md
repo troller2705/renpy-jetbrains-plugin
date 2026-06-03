@@ -20,6 +20,6 @@
 
 ### Phase 4: Diagnostics & Project Tooling
 
-* [ ] Implement `ExternalAnnotator` to validate script indentation and basic block structure.
-* [ ] Add an inspection pass to verify that referenced assets (images, audio files) actually exist within the project's `game/` directory.
-* [ ] Build a custom Run Configuration (`RunConfigurationExtension`) to launch the project directly via the local Ren'Py SDK executable from within the IDE.
+* [x] Implement `ExternalAnnotator` to validate script indentation and basic block structure.
+* [x] Add an inspection pass to verify that referenced assets (images, audio files) actually exist within the project's `game/` directory.
+* [x] Build a custom Run Configuration (`RunConfigurationExtension`) to launch the project directly via the local Ren'Py SDK executable from within the IDE.

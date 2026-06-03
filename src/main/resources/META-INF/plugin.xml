@@ -147,5 +147,13 @@
         <liveTemplateContext implementation="ee.vstepa.jetbrains.plugins.renpy.template.RenPyLiveTemplateContext" contextId="RENPY"/>
         <lang.documentationProvider language="Ren'Py Script" implementationClass="ee.vstepa.jetbrains.plugins.renpy.documentation.RenPyDocumentationProvider"/>
         <colorProvider implementation="ee.vstepa.jetbrains.plugins.renpy.color.RenPyColorProvider"/>
+        <annotator language="Ren'Py Script" implementationClass="ee.vstepa.jetbrains.plugins.renpy.annotator.RenPyAnnotator"/>
+        <localInspection language="Ren'Py Script"
+                         displayName="Unresolved Asset Reference"
+                         groupName="Ren'Py"
+                         enabledByDefault="true"
+                         level="WARNING"
+                         implementationClass="ee.vstepa.jetbrains.plugins.renpy.inspection.RenPyAssetInspection"/>
+        <configurationType implementation="ee.vstepa.jetbrains.plugins.renpy.run.RenPyRunConfigurationType"/>
     </extensions>
 </idea-plugin>
