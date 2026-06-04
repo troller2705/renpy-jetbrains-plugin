@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "ee.vstepa.jetbrains.plugins"
-version = "0.0.3-252"
+version = "0.0.4"
 
 repositories {
     mavenCentral()

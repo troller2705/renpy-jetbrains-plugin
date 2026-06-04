@@ -1,6 +1,6 @@
 <idea-plugin require-restart="true">
-    <id>ee.vstepa.jetbrains.plugins.renpy</id>
-    <name>Ren'Py Language</name>
+    <id>dev.troller2705.jetbrains.plugins.renpy</id>
+    <name>Ren'Py Language Clone</name>
 
     <vendor
             url="https://github.com/vstepa"
